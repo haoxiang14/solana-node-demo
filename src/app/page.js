@@ -99,6 +99,7 @@ export default function Home() {
       
       // Fetch account info
       const info = await connection.getAccountInfo(publicKey);
+      setAccountInfo(info);
 
       const solanaPrice = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd');
       const solanaPriceData = await solanaPrice.json();
@@ -237,8 +238,8 @@ const Skeleton = () => (
 
 
 const AccountDetails = ({ tokenHoldings, solanaPrice, accountInfo }) => {
-  const solBalance = accountInfo ? (accountInfo.lamports / 1e9).toFixed(9) : 0;
-  const solValue = accountInfo && solanaPrice ? (accountInfo.lamports / 1e9 * solanaPrice) : 0;
+  const solBalance = accountInfo && accountInfo.lamports ? (accountInfo.lamports / 1e9).toFixed(9) : 0;
+  const solValue = accountInfo && solanaPrice ? (solBalance* solanaPrice) : 0;
 
   // Calculate total value of other tokens
   const tokenValue = tokenHoldings.reduce((total, token) => {
