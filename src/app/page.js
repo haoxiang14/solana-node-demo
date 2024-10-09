@@ -99,13 +99,6 @@ export default function Home() {
       
       // Fetch account info
       const info = await connection.getAccountInfo(publicKey);
-      try {
-        console.log(rpc_connection)
-      } 
-      catch (error) {
-        console.log(error)
-      }
-      setAccountInfo(info);
 
       const solanaPrice = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd');
       const solanaPriceData = await solanaPrice.json();
